@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>作品记录 · The Hype Audit &amp; 知夏昀</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #f7f4ee;
+        --surface: #fffdf9;
+        --ink: #1c1a16;
+        --ink-soft: #4c463c;
+        --ink-faint: #8a8172;
+        --line: #ddd5c6;
+        --line-strong: #b9ae97;
+        --accent: #b03a24;
+        --accent-soft: rgba(176, 58, 36, 0.08);
+        --tag-bg: #efe9dc;
+        --shadow: 0 1px 2px rgba(28, 26, 22, 0.05), 0 10px 30px -18px rgba(28, 26, 22, 0.25);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #16140f;
+          --surface: #1e1b15;
+          --ink: #ece6d8;
+          --ink-soft: #c4bba6;
+          --ink-faint: #8d8471;
+          --line: #373226;
+          --line-strong: #57503e;
+          --accent: #e0684c;
+          --accent-soft: rgba(224, 104, 76, 0.12);
+          --tag-bg: #2a2619;
+          --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 30px -18px rgba(0, 0, 0, 0.7);
+        }
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Noto Sans SC", -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+        font-size: 16px;
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+      }
+      .serif { font-family: "Noto Serif SC", "Songti SC", serif; }
+      .mono { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+      .wrap { max-width: 780px; margin: 0 auto; padding: 0 20px 72px; }
+
+      /* ---------- Header ---------- */
+      header { padding: 56px 0 8px; }
+      .head-row { display: flex; align-items: flex-start; gap: 18px; }
+      .seal {
+        flex: none;
+        width: 52px; height: 52px;
+        background: var(--accent);
+        color: #fff8f0;
+        border-radius: 7px;
+        display: flex; align-items: center; justify-content: center;
+        font-family: "Noto Serif SC", serif;
+        font-size: 30px; font-weight: 900;
+        transform: rotate(-3deg);
+        box-shadow: var(--shadow);
+        margin-top: 6px;
+      }
+      h1 {
+        margin: 0;
+        font-family: "Noto Serif SC", serif;
+        font-weight: 900;
+        font-size: clamp(34px, 7vw, 46px);
+        line-height: 1.15;
+        letter-spacing: 0.02em;
+      }
+      .head-sub {
+        margin: 6px 0 0;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 13px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+      }
+      .intro { margin: 22px 0 0; color: var(--ink-soft); max-width: 34em; }
+      .intro strong { color: var(--ink); font-weight: 700; }
+      .updated {
+        margin-top: 18px;
+        display: inline-flex; align-items: center; gap: 8px;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12.5px;
+        color: var(--ink-faint);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 13px;
+        background: var(--surface);
+      }
+      .updated::before {
+        content: "";
+        width: 7px; height: 7px; border-radius: 50%;
+        background: var(--accent);
+      }
+
+      /* ---------- Nav ---------- */
+      nav {
+        position: sticky; top: 0; z-index: 10;
+        margin: 34px -20px 0; padding: 0 20px;
+        background: color-mix(in srgb, var(--bg) 88%, transparent);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--line);
+      }
+      nav ul {
+        list-style: none; margin: 0; padding: 0;
+        display: flex; gap: 4px; flex-wrap: wrap;
+      }
+      nav a {
+        display: inline-flex; align-items: center;
+        min-height: 44px; padding: 6px 14px;
+        color: var(--ink-soft);
+        font-size: 14.5px; font-weight: 500;
+        border-bottom: 2px solid transparent;
+      }
+      nav a:hover { text-decoration: none; color: var(--ink); }
+      nav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+      /* ---------- Overview strip ---------- */
+      .overview {
+        margin-top: 36px;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--surface);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+      .ov { padding: 16px 8px 14px; text-align: center; }
+      .ov + .ov { border-left: 1px solid var(--line); }
+      .ov b {
+        display: block;
+        font-family: "Noto Serif SC", serif;
+        font-size: 26px; font-weight: 900; line-height: 1.1;
+      }
+      .ov span { display: block; margin-top: 4px; font-size: 12px; color: var(--ink-faint); line-height: 1.4; }
+
+      /* ---------- Sections ---------- */
+      section { margin-top: 64px; scroll-margin-top: 72px; }
+      .sec-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+      .sec-no {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 13px; color: var(--accent); letter-spacing: 0.1em;
+      }
+      h2 {
+        margin: 0;
+        font-family: "Noto Serif SC", serif;
+        font-size: clamp(24px, 5vw, 30px);
+        font-weight: 900; line-height: 1.3;
+      }
+      .sec-note { margin: 8px 0 0; color: var(--ink-faint); font-size: 14px; }
+      .rule { height: 2px; background: var(--ink); margin-top: 16px; position: relative; }
+      .rule::after { content: ""; position: absolute; left: 0; top: 4px; right: 0; height: 1px; background: var(--line-strong); }
+
+      h3.group {
+        margin: 34px 0 4px;
+        font-size: 13px; font-weight: 700;
+        letter-spacing: 0.18em;
+        color: var(--ink-faint);
+        text-transform: uppercase;
+      }
+      h3.group .zh { letter-spacing: 0.3em; text-transform: none; }
+
+      /* ---------- Entries ---------- */
+      .entry {
+        padding: 20px 0 18px;
+        border-bottom: 1px solid var(--line);
+      }
+      .entry-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+      .entry-title {
+        font-family: "Noto Serif SC", serif;
+        font-weight: 700;
+        font-size: 19px;
+        line-height: 1.45;
+      }
+      .entry-title a { color: var(--ink); }
+      .entry-title a:hover { color: var(--accent); text-decoration: none; }
+      .price {
+        flex: none;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 15px; font-weight: 500;
+        color: var(--ink);
+        padding-top: 3px;
+      }
+      .meta {
+        margin-top: 6px;
+        display: flex; flex-wrap: wrap; gap: 6px 14px;
+        font-size: 13.5px; color: var(--ink-faint);
+      }
+      .meta .mono { font-size: 12.5px; }
+      .desc { margin: 8px 0 0; color: var(--ink-soft); font-size: 15px; }
+      .tags { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+      .tag {
+        font-size: 12px; line-height: 1;
+        padding: 5px 9px;
+        border-radius: 4px;
+        background: var(--tag-bg);
+        color: var(--ink-soft);
+      }
+      .tag.live { background: var(--accent-soft); color: var(--accent); font-weight: 700; }
+      .ext-link {
+        display: inline-flex; align-items: center; gap: 5px;
+        margin-top: 10px;
+        font-size: 14px; font-weight: 500;
+        min-height: 36px;
+      }
+
+      /* channel rows */
+      .row-link {
+        display: flex; justify-content: space-between; align-items: center; gap: 14px;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--line);
+        color: var(--ink);
+        min-height: 52px;
+      }
+      a.row-link:hover { text-decoration: none; }
+      a.row-link:hover .row-name { color: var(--accent); }
+      .row-name { font-weight: 700; font-size: 16px; }
+      .row-desc { display: block; font-weight: 400; font-size: 13.5px; color: var(--ink-faint); margin-top: 1px; }
+      .row-arrow { flex: none; color: var(--accent); font-size: 18px; }
+      .row-handle { flex: none; font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: var(--ink-faint); text-align: right; }
+
+      .disclosure {
+        margin-top: 26px;
+        padding: 14px 16px;
+        border: 1px dashed var(--line-strong);
+        border-radius: 8px;
+        font-size: 13.5px; color: var(--ink-faint);
+        background: var(--surface);
+      }
+
+      /* ---------- Log / timeline ---------- */
+      .log { list-style: none; margin: 10px 0 0; padding: 0; }
+      .log li {
+        display: grid;
+        grid-template-columns: 108px 1fr;
+        gap: 16px;
+        padding: 15px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .log time {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 13px; color: var(--accent);
+        padding-top: 3px; white-space: nowrap;
+      }
+      .log p { margin: 0; color: var(--ink-soft); font-size: 15px; }
+      .log p b { color: var(--ink); font-weight: 700; }
+
+      /* ---------- Footer ---------- */
+      footer {
+        margin-top: 72px;
+        padding-top: 24px;
+        border-top: 2px solid var(--ink);
+        color: var(--ink-faint);
+        font-size: 14px;
+      }
+      footer p { margin: 0 0 6px; }
+      footer .foot-title {
+        font-family: "Noto Serif SC", serif;
+        color: var(--ink); font-weight: 700; font-size: 16px;
+      }
+
+      @media (max-width: 560px) {
+        header { padding-top: 40px; }
+        .overview { grid-template-columns: repeat(3, 1fr); }
+        .ov:nth-child(3) { border-bottom: 1px solid var(--line); }
+        .ov:nth-child(4) { border-left: none; }
+        .ov:nth-child(n+4) { border-top: 1px solid var(--line); }
+        .ov b { font-size: 22px; }
+        .log li { grid-template-columns: 1fr; gap: 2px; padding: 13px 0; }
+        .entry-title { font-size: 17.5px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+
+      <header>
+        <div class="head-row">
+          <div class="seal" aria-hidden="true">录</div>
+          <div>
+            <h1>作品记录</h1>
+            <p class="head-sub">Portfolio &amp; Record</p>
+          </div>
+        </div>
+        <p class="intro">
+          这里记下做过的东西——出版的书、连载的小说、短视频和数字产品。
+          不为等谁来看，只为留档：<strong>哪天需要自荐，把这个页面发出去就行。</strong>
+          页面只用两个公开身份：海外品牌 <strong>The Hype Audit</strong>，番茄小说笔名 <strong>知夏昀</strong>。
+        </p>
+        <span class="updated">最后更新 · Last updated 2026-11-23</span>
+      </header>
+
+      <nav aria-label="页面导航">
+        <ul>
+          <li><a href="#hype" data-nav>The Hype Audit</a></li>
+          <li><a href="#zhixia" data-nav>知夏昀 · 小说</a></li>
+          <li><a href="#log" data-nav>记录日志</a></li>
+        </ul>
+      </nav>
+
+      <div class="overview" aria-label="作品概览">
+        <div class="ov"><b>2</b><span>KDP 涂色书<br />Coloring books</span></div>
+        <div class="ov"><b>3</b><span>长篇小说<br />Novels</span></div>
+        <div class="ov"><b>7</b><span>签约短故事<br />Short stories</span></div>
+        <div class="ov"><b>2</b><span>数字产品<br />Digital products</span></div>
+        <div class="ov"><b>2</b><span>Fiverr 服务<br />Fiverr gigs</span></div>
+      </div>
+
+      <!-- ============ The Hype Audit ============ -->
+      <section id="hype">
+        <div class="sec-head">
+          <span class="sec-no">01</span>
+          <h2>The Hype Audit</h2>
+        </div>
+        <p class="sec-note">海外内容品牌 · 家居好物推荐，面向美国读者与观众。Home-gadget recommendations for a US audience.</p>
+        <div class="rule"></div>
+
+        <h3 class="group">Books on Amazon KDP · 涂色书</h3>
+
+        <article class="entry">
+          <div class="entry-top">
+            <div class="entry-title">
+              <a href="https://www.amazon.com/dp/B0HRTQPW3C" target="_blank" rel="noopener">Bold and Easy Cute Food Coloring Book</a>
+            </div>
+            <div class="price">$9.99</div>
+          </div>
+          <div class="meta">
+            <span>Amazon KDP · Paperback coloring book</span>
+            <span class="mono">ASIN B0HRTQPW3C</span>
+          </div>
+          <div class="tags">
+            <span class="tag live">已上架 Live</span>
+            <span class="tag">2026-11-17</span>
+          </div>
+          <a class="ext-link" href="https://www.amazon.com/dp/B0HRTQPW3C" target="_blank" rel="noopener">在亚马逊查看 View on Amazon →</a>
+        </article>
+
+        <article class="entry">
+          <div class="entry-top">
+            <div class="entry-title">
+              <a href="https://www.amazon.com/dp/B0HRYQTCVB" target="_blank" rel="noopener">Bold and Easy Cute Animals Coloring Book</a>
+            </div>
+            <div class="price">$9.99</div>
+          </div>
+          <div class="meta">
+            <span>Amazon KDP · Paperback coloring book</span>
+            <span class="mono">ASIN B0HRYQTCVB</span>
+          </div>
+          <div class="tags">
+            <span class="tag live">已上架 Live</span>
+            <span class="tag">2026-11-18</span>
+          </div>
+          <a class="ext-link" href="https://www.amazon.com/dp/B0HRYQTCVB" target="_blank" rel="noopener">在亚马逊查看 View on Amazon →</a>
+        </article>
+
+        <h3 class="group">Channels · 频道</h3>
+
+        <a class="row-link" href="https://www.pinterest.com/thehypeaudit/" target="_blank" rel="noopener">
+          <span>
+            <span class="row-name">Pinterest</span>
+            <span class="row-desc">好物推荐图钉 · Product recommendation pins, home gadgets</span>
+          </span>
+          <span class="row-arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="row-link" href="https://www.youtube.com/@thehypeaudits" target="_blank" rel="noopener">
+          <span>
+            <span class="row-name">YouTube Shorts</span>
+            <span class="row-desc">产品测评短视频 · Product review shorts</span>
+          </span>
+          <span class="row-arrow" aria-hidden="true">→</span>
+        </a>
+        <div class="row-link">
+          <span>
+            <span class="row-name">TikTok</span>
+            <span class="row-desc">产品测评短视频 · Product review short videos, home gadgets for US shoppers</span>
+          </span>
+          <span class="row-handle">@user3150909092463</span>
+        </div>
+
+        <h3 class="group">Gumroad · 数字产品</h3>
+
+        <article class="entry">
+          <div class="entry-top">
+            <div class="entry-title">Pinterest Affiliate Pipeline Kit</div>
+            <div class="price">$9</div>
+          </div>
+          <div class="meta"><span>Gumroad 店铺 · Store “thehypeaudit”</span></div>
+        </article>
+        <article class="entry">
+          <div class="entry-top">
+            <div class="entry-title">Viral Hook Swipe File</div>
+            <div class="price">$9</div>
+          </div>
+          <div class="meta"><span>Gumroad 店铺 · Store “thehypeaudit”</span></div>
+        </article>
+
+        <h3 class="group">Fiverr · 接单服务</h3>
+
+        <article class="entry">
+          <div class="entry-top">
+            <div class="entry-title">Short-Video Scripts 短视频脚本</div>
+            <div class="price">$40 / $70 / $100</div>
+          </div>
+          <div class="meta"><span>Fiverr gig · 三档定价 Three tiers</span></div>
+        </article>
+        <article class="entry">
+          <div class="entry-top">
+            <div class="entry-title">Video Hooks 视频开头钩子</div>
+            <div class="price">$15 / $25 / $40</div>
+          </div>
+          <div class="meta"><span>Fiverr gig · 三档定价 Three tiers</span></div>
+        </article>
+
+        <p class="disclosure">Affiliate disclosure: As an Amazon Associate I earn from qualifying purchases. 本页部分亚马逊链接为联盟链接，通过链接购买，我可能获得佣金，不影响你的价格。</p>
+      </section>
+
+      <!-- ============ 知夏昀 ============ -->
+      <section id="zhixia">
+        <div class="sec-head">
+          <span class="sec-no">02</span>
+          <h2>知夏昀 · 番茄小说</h2>
+        </div>
+        <p class="sec-note">番茄小说作者。长篇 3 部，短故事 7 篇全部签约。</p>
+        <div class="rule"></div>
+
+        <h3 class="group"><span class="zh">长篇小说</span></h3>
+
+        <article class="entry">
+          <div class="entry-top">
+            <div class="entry-title">《离婚当天，我成了前夫的首席律师》</div>
+          </div>
+          <div class="meta">
+            <span>全 125 章</span>
+          </div>
+          <div class="tags">
+            <span class="tag live">已完结</span>
+            <span class="tag">已签约</span>
+          </div>
+        </article>
+
+        <article class="entry">
+          <div class="entry-top">
+            <div class="entry-title">《领证当天，我嫁给了对手》</div>
+          </div>
+          <div class="meta">
+            <span>已发布 26 章 · 约 58,500 字</span>
+          </div>
+          <div class="tags">
+            <span class="tag live">连载中</span>
+          </div>
+        </article>
+
+        <article class="entry">
+          <div class="entry-top">
+            <div class="entry-title">《全网嘲她糊顶流却叫她老师》</div>
+          </div>
+          <div class="meta">
+            <span>全 45 章 · 107,000 字</span>
+          </div>
+          <div class="tags">
+            <span class="tag">已签约</span>
+          </div>
+        </article>
+
+        <h3 class="group"><span class="zh">短故事 · 全部签约</span></h3>
+
+        <article class="entry">
+          <div class="entry-top">
+            <div class="entry-title">《我拎着一箱婴儿衣服，去儿子家过国庆》</div>
+          </div>
+          <div class="meta"><span>9,852 字</span><span class="mono">2026-10-01</span></div>
+        </article>
+
+        <article class="entry">
+          <div class="entry-top">
+            <div class="entry-title">《领证当天，我发现老公是来讨债的》</div>
+          </div>
+          <div class="meta"><span>14,278 字</span></div>
+        </article>
+
+        <article class="entry">
+          <div class="entry-top">
+            <div class="entry-title">《婚礼当天，新郎跑了，我拉了个路人顶包》</div>
+          </div>
+          <div class="meta"><span>13,860 字</span></div>
+        </article>
+
+        <article class="entry">
+          <div class="entry-top">
+            <div class="entry-title">《搬进凶宅的第一晚，我听见有人叫我的名字》</div>
+          </div>
+          <div class="meta"><span>13,804 字</span></div>
+          <div class="tags"><span class="tag">悬疑惊悚</span></div>
+        </article>
+
+        <article class="entry">
+          <div class="entry-top">
+            <div class="entry-title">《深夜便利店的账本》</div>
+          </div>
+          <div class="meta"><span>13,460 字</span></div>
+          <div class="tags"><span class="tag">都市日常</span></div>
+        </article>
+
+        <article class="entry">
+          <div class="entry-top">
+            <div class="entry-title">《错题本的最后一页》</div>
+          </div>
+          <div class="meta"><span>13,403 字</span></div>
+          <div class="tags"><span class="tag">青春虐恋</span></div>
+        </article>
+
+        <article class="entry">
+          <div class="entry-top">
+            <div class="entry-title">《凌晨的代驾单，客人要回一个拆了十年的地址》</div>
+          </div>
+          <div class="meta"><span>13,413 字</span></div>
+          <div class="tags"><span class="tag">悬疑惊悚</span></div>
+        </article>
+      </section>
+
+      <!-- ============ Log ============ -->
+      <section id="log">
+        <div class="sec-head">
+          <span class="sec-no">03</span>
+          <h2>记录日志</h2>
+        </div>
+        <p class="sec-note">按时间记下来的节点。新的在上面。</p>
+        <div class="rule"></div>
+
+        <ul class="log">
+          <li>
+            <time datetime="2026-11-23">2026-11-23</time>
+            <p>《领证当天，我嫁给了对手》连载至 <b>26 章</b>（约 58,500 字）；短故事累计 <b>7 篇全部签约</b>。本页建立，作为长期作品记录。</p>
+          </li>
+          <li>
+            <time datetime="2026-11-18">2026-11-18</time>
+            <p><b>Bold and Easy Cute Animals Coloring Book</b> 在亚马逊 KDP 上架（$9.99）。</p>
+          </li>
+          <li>
+            <time datetime="2026-11-17">2026-11-17</time>
+            <p><b>Bold and Easy Cute Food Coloring Book</b> 在亚马逊 KDP 上架（$9.99）。</p>
+          </li>
+          <li>
+            <time datetime="2026-10-01">2026-10-01</time>
+            <p>短故事《我拎着一箱婴儿衣服，去儿子家过国庆》发布（9,852 字），后签约。</p>
+          </li>
+        </ul>
+      </section>
+
+      <footer>
+        <p class="foot-title">联系 · Contact</p>
+        <p>合作或接单，请通过 Fiverr / Pinterest 找到 The Hype Audit。For collaborations, reach The Hype Audit via Fiverr or Pinterest.</p>
+        <p class="mono" style="font-size:12.5px;">作品记录 · Portfolio &amp; Record — last updated 2026-11-23</p>
+      </footer>
+
+    </div>
+
+    <script>
+      // Scroll-spy: highlight the nav item for the section in view.
+      (function () {
+        var links = Array.prototype.slice.call(document.querySelectorAll("[data-nav]"));
+        var map = {};
+        links.forEach(function (a) { map[a.getAttribute("href").slice(1)] = a; });
+        if (!("IntersectionObserver" in window)) return;
+        var obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              links.forEach(function (a) { a.classList.remove("active"); });
+              var link = map[e.target.id];
+              if (link) link.classList.add("active");
+            }
+          });
+        }, { rootMargin: "-30% 0px -60% 0px" });
+        ["hype", "zhixia", "log"].forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) obs.observe(el);
+        });
+      })();
+    </script>
+  </body>
+</html>
